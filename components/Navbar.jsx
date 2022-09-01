@@ -4,9 +4,11 @@ import NavbarStyled from "../styles/NavbarStyled";
 
 const Navbar = () => {
    return (
-      <NavbarStyled>
-         <Link href="/">Uber</Link>
-      </NavbarStyled>
+      <nav className="bg-black text-white p-4">
+         <Link href="/">
+            <a className="text-3xl"> Uber</a>
+         </Link>
+      </nav>
    );
 };
 

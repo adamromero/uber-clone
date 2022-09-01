@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Head from "next/head";
 import mapboxgl from "!mapbox-gl";
 import tw from "tailwind-styled-components";
 import PickupLocation from "../components/PickupLocation";
