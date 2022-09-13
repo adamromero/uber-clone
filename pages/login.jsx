@@ -1,11 +1,18 @@
 import React from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
 import LoginStyled from "../styles/Login/LoginStyled";
 
-const LoginButton = ({ children }) => {
-   return <button className="bg-[#eeeeee] rounded p-3">{children}</button>;
+const LoginButton = ({ onClickSignIn, children }) => {
+   return (
+      <button onClick={onClickSignIn} className="bg-[#eeeeee] rounded p-3">
+         {children}
+      </button>
+   );
 };
 
 const Login = () => {
+   //const { data: session, status } = useSession();
+
    return (
       <div
          className="max-w-[360px]
@@ -32,7 +39,15 @@ const Login = () => {
          <div className="flex flex-col gap-2">
             <LoginButton>Continue with Apple</LoginButton>
             <LoginButton>Continue with Facebook</LoginButton>
-            <LoginButton>Continue with Google</LoginButton>
+            <LoginButton
+               onClickSignIn={() =>
+                  signIn("google", {
+                     callbackUrl: "http://localhost:3000/",
+                  })
+               }
+            >
+               Continue with Google
+            </LoginButton>
          </div>
       </div>
    );
