@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { BiCurrentLocation } from "react-icons/bi";
+import { MdLocationPin } from "react-icons/md";
+import { AiFillClockCircle } from "react-icons/ai";
+import { IoIosArrowDown } from "react-icons/io";
 
 const PickupLocation = () => {
    const [pickup, setPickup] = useState("");
@@ -28,7 +32,7 @@ const PickupLocation = () => {
    return (
       <div className="absolute left-4 max-h-[700px] h-full max-w-[405px] w-full bg-white top-2/4 translate-y-[-50%] flex flex-col p-6 rounded-2xl">
          <h1 className="text-3xl mb-4">Where can we pick you up?</h1>
-         <div className="flex flex-col gap-4 relative">
+         <div className="flex flex-col gap-4 relative mb-3">
             <input
                className="bg-[#eeeeee] p-3 pl-12"
                type="text"
@@ -47,15 +51,26 @@ const PickupLocation = () => {
             <button className="bg-[#eeeeee] p-2" onClick={handleConfirmation}>
                Confirm
             </button>
-            <button className="bg-[#eeeeee] p-2 rounded-full w-[150px]">
-               Leave Now
+            <button className="bg-[#eeeeee] p-2 rounded-full w-[150px] justify-center items-center flex gap-2">
+               <AiFillClockCircle />
+               <span>Leave Now</span>
+               <IoIosArrowDown />
             </button>
          </div>
-         <div>
-            <div>Allow location access</div>
-            <p>For perfect pickup experience</p>
+
+         <div className="flex items-center gap-3">
+            <BiCurrentLocation className="text-2xl" />
+            <div className="border-b-[1px] border-gray py-3 w-full">
+               <p className="font-bold block">Allow location access</p>
+               <span>For perfect pickup experience</span>
+            </div>
          </div>
-         <div>Set location on map</div>
+         <div className="flex items-center gap-3">
+            <MdLocationPin className="text-2xl" />
+            <div className="border-b-[1px] border-gray py-3 w-full">
+               <p className="font-bold block">Set location on map</p>
+            </div>
+         </div>
       </div>
    );
 };

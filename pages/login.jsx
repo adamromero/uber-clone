@@ -1,5 +1,6 @@
-import React from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSession, getSession, signIn, signOut } from "next-auth/react";
 import LoginStyled from "../styles/Login/LoginStyled";
 
 const LoginButton = ({ onClickSignIn, children }) => {
@@ -11,8 +12,6 @@ const LoginButton = ({ onClickSignIn, children }) => {
 };
 
 const Login = () => {
-   //const { data: session, status } = useSession();
-
    return (
       <div
          className="max-w-[360px]
@@ -52,5 +51,22 @@ const Login = () => {
       </div>
    );
 };
+
+export async function getServerSideProps(context) {
+   const session = await getSession(context);
+
+   if (session) {
+      return {
+         redirect: {
+            destination: "/",
+            permanent: false,
+         },
+      };
+   }
+
+   return {
+      props: { session },
+   };
+}
 
 export default Login;

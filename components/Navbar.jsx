@@ -11,7 +11,11 @@ const Navbar = () => {
          <Link href="/">
             <a className="text-3xl"> Uber</a>
          </Link>
-         {session ? <div>{session.user.name}</div> : <div>Logged out</div>}
+         {session ? (
+            <button onClick={signOut}>{session.user.name}</button>
+         ) : (
+            <div>Logged out</div>
+         )}
       </nav>
    );
 };
