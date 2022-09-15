@@ -1,8 +1,30 @@
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { BiCurrentLocation } from "react-icons/bi";
 import { MdLocationPin } from "react-icons/md";
 import { AiFillClockCircle } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
+
+const rideData = [
+   {
+      image: "/uberx.png",
+      name: "UberX",
+      description: "Affordable, everyday rides",
+      price: 13.95,
+   },
+   {
+      image: "/ubercomfort.png",
+      name: "Comfort",
+      description: "Newer cars with extra legroom",
+      price: 17.88,
+   },
+   {
+      image: "/uberxl.png",
+      name: "UberXL",
+      description: "Affordable rides for groups up to 6",
+      price: 20.89,
+   },
+];
 
 const PickupLocation = ({
    setPickupCoordinates,
@@ -16,8 +38,6 @@ const PickupLocation = ({
    useEffect(() => {
       fetchLocationData();
    }, [pickup, destination]);
-
-   //console.log("pickup destination", pickup, destination);
 
    const fetchLocationData = async () => {
       if (pickup) {
@@ -75,7 +95,25 @@ const PickupLocation = ({
             </button>
          </div>
          {pickupInput && destinationInput ? (
-            <div>just some other stuff</div>
+            <div>
+               <div className="h-64 overflow-auto no-scrollbar">
+                  {rideData.map((ride) => (
+                     <div className="flex items-center justify-between border-gray border-2 rounded px-3 py-6 cursor-pointer">
+                        <Image src={ride.image} width={88} height={88} />
+                        <div className="flex">
+                           <div className="flex flex-col">
+                              <div className="font-medium">{ride.name}</div>
+                              <p>{ride.description}</p>
+                           </div>
+                           <div className="font-medium">${ride.price}</div>
+                        </div>
+                     </div>
+                  ))}
+               </div>
+               <button className="bg-black text-white p-3 w-full rounded">
+                  Confirm
+               </button>
+            </div>
          ) : (
             <>
                <div className="flex items-center gap-3">

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSession, signIn, signOut } from "next-auth/react";
 import NavbarStyled from "../styles/NavbarStyled";
 
@@ -11,7 +12,18 @@ const Navbar = () => {
          <Link href="/">
             <a className="text-3xl"> Uber</a>
          </Link>
-         {session && <button onClick={signOut}>{session.user.name}</button>}
+         {session && (
+            <button className="flex gap-2 items-center" onClick={signOut}>
+               <Image
+                  className="rounded-full"
+                  src={session.user.image}
+                  width={30}
+                  height={30}
+                  alt={session.user.name}
+               />
+               {session.user.name}
+            </button>
+         )}
       </nav>
    );
 };
