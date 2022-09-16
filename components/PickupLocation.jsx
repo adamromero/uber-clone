@@ -7,18 +7,21 @@ import { IoIosArrowDown } from "react-icons/io";
 
 const rideData = [
    {
+      id: 1,
       image: "/uberx.png",
       name: "UberX",
       description: "Affordable, everyday rides",
       price: 13.95,
    },
    {
+      id: 2,
       image: "/ubercomfort.png",
       name: "Comfort",
       description: "Newer cars with extra legroom",
       price: 17.88,
    },
    {
+      id: 3,
       image: "/uberxl.png",
       name: "UberXL",
       description: "Affordable rides for groups up to 6",
@@ -34,6 +37,7 @@ const PickupLocation = ({
    const [destination, setDestination] = useState("");
    const [pickupInput, setPickupInput] = useState("");
    const [destinationInput, setDestinationInput] = useState("");
+   const [selectedRide, setSelectedRide] = useState("");
 
    useEffect(() => {
       fetchLocationData();
@@ -62,8 +66,12 @@ const PickupLocation = ({
       setDestination(destinationInput);
    };
 
+   const handleRequest = () => {
+      console.log("handle request: ", selectedRide);
+   };
+
    return (
-      <div className="absolute left-4 max-h-[700px] h-full max-w-[405px] w-full bg-white top-2/4 translate-y-[-50%] flex flex-col p-6 rounded-2xl">
+      <div className="absolute md:left-4 md:max-h-[700px] max-h-[460px] md:max-w-[405px] md:top-2/4 top-[67vh] md:rounded-2xl h-full w-full bg-white translate-y-[-50%] flex flex-col p-6">
          <h1 className="text-3xl mb-4 font-medium">
             Where can we pick you up?
          </h1>
@@ -94,43 +102,56 @@ const PickupLocation = ({
                <IoIosArrowDown />
             </button>
          </div>
-         {pickupInput && destinationInput ? (
-            <div>
-               <div className="h-64 overflow-auto no-scrollbar">
-                  {rideData.map((ride) => (
-                     <div className="flex items-center justify-between border-gray border-2 rounded px-3 py-6 cursor-pointer">
-                        <Image src={ride.image} width={88} height={88} />
-                        <div className="flex">
-                           <div className="flex flex-col">
-                              <div className="font-medium">{ride.name}</div>
-                              <p>{ride.description}</p>
+         {
+            /*pickupInput && destinationInput &&*/ pickup && destination ? (
+               <div>
+                  <div className="h-64 overflow-auto no-scrollbar">
+                     {rideData.map((ride) => (
+                        <button
+                           key={ride.id}
+                           className={`${
+                              selectedRide.id === ride.id
+                                 ? "border-gray border-2"
+                                 : ""
+                           } flex items-center justify-between rounded px-3 py-6 text-left`}
+                           onClick={() => setSelectedRide(ride)}
+                        >
+                           <Image src={ride.image} width={88} height={88} />
+                           <div className="flex justify-between w-[300px]">
+                              <div className="flex flex-col">
+                                 <div className="font-medium">{ride.name}</div>
+                                 <p>{ride.description}</p>
+                              </div>
+                              <div className="font-medium">${ride.price}</div>
                            </div>
-                           <div className="font-medium">${ride.price}</div>
-                        </div>
+                        </button>
+                     ))}
+                  </div>
+                  <button
+                     className="bg-black text-white p-3 w-full rounded"
+                     onClick={handleRequest}
+                  >
+                     Request
+                  </button>
+               </div>
+            ) : (
+               <>
+                  <div className="flex items-center gap-3">
+                     <BiCurrentLocation className="text-2xl" />
+                     <div className="border-b-[1px] border-gray py-3 w-full">
+                        <p className="font-bold block">Allow location access</p>
+                        <span>For perfect pickup experience</span>
                      </div>
-                  ))}
-               </div>
-               <button className="bg-black text-white p-3 w-full rounded">
-                  Confirm
-               </button>
-            </div>
-         ) : (
-            <>
-               <div className="flex items-center gap-3">
-                  <BiCurrentLocation className="text-2xl" />
-                  <div className="border-b-[1px] border-gray py-3 w-full">
-                     <p className="font-bold block">Allow location access</p>
-                     <span>For perfect pickup experience</span>
                   </div>
-               </div>
-               <div className="flex items-center gap-3">
-                  <MdLocationPin className="text-2xl" />
-                  <div className="border-b-[1px] border-gray py-3 w-full">
-                     <p className="font-bold block">Set location on map</p>
+                  <div className="flex items-center gap-3">
+                     <MdLocationPin className="text-2xl" />
+                     <div className="border-b-[1px] border-gray py-3 w-full">
+                        <p className="font-bold block">Set location on map</p>
+                     </div>
                   </div>
-               </div>
-            </>
-         )}
+               </>
+            )
+         }
       </div>
    );
 };

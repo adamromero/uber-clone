@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useRouter } from "next/router";
-import { useSession, getSession, signIn, signOut } from "next-auth/react";
+import React from "react";
+import { getSession, signIn } from "next-auth/react";
 import LoginStyled from "../styles/Login/LoginStyled";
 
 const LoginButton = ({ onClickSignIn, children }) => {
