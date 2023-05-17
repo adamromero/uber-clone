@@ -37,7 +37,7 @@ const PickupLocation = ({
    const [destination, setDestination] = useState("");
    const [pickupInput, setPickupInput] = useState("");
    const [destinationInput, setDestinationInput] = useState("");
-   const [selectedRide, setSelectedRide] = useState("");
+   const [selectedRide, setSelectedRide] = useState(rideData[0]);
 
    useEffect(() => {
       fetchLocationData();
@@ -111,9 +111,9 @@ const PickupLocation = ({
                            key={ride.id}
                            className={`${
                               selectedRide.id === ride.id
-                                 ? "border-gray border-2"
+                                 ? "border-gray border-[3px]"
                                  : ""
-                           } flex items-center justify-between rounded px-3 py-6 text-left`}
+                           } flex items-center justify-between rounded-lg px-3 py-6 text-left`}
                            onClick={() => setSelectedRide(ride)}
                         >
                            <Image src={ride.image} width={88} height={88} />
@@ -131,7 +131,7 @@ const PickupLocation = ({
                      className="bg-black text-white p-3 w-full rounded"
                      onClick={handleRequest}
                   >
-                     Request
+                     Request {selectedRide.name}
                   </button>
                </div>
             ) : (

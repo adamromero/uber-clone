@@ -36,7 +36,15 @@ const Login = () => {
          </div>
          <div className="flex flex-col gap-2">
             <LoginButton>Continue with Apple</LoginButton>
-            <LoginButton>Continue with Facebook</LoginButton>
+            <LoginButton
+               onClickSignIn={() =>
+                  signIn("facebook", {
+                     callbackUrl: "http://localhost:3000/",
+                  })
+               }
+            >
+               Continue with Facebook
+            </LoginButton>
             <LoginButton
                onClickSignIn={() =>
                   signIn("google", {
